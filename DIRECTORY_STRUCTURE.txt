@@ -1,0 +1,32 @@
+idea_0.2_migration/
+├── 01-source-code/     # Source code
+│   ├── api/            # Backend API
+│   ├── contracts/      # Type definitions
+│   ├── db/             # Database code
+│   ├── src/            # Frontend code
+│   └── package.json    # Dependencies
+│
+├── 02-database/        # Database scripts
+│   ├── init.sql        # Init script
+│   ├── schema.ts       # Schema definition
+│   └── seed.ts         # Seed data
+│
+├── 03-config/          # Configuration
+│   ├── .env.example    # Env template
+│   ├── docker-compose.yml
+│   └── Dockerfile
+│
+├── 04-environment/     # Environment setup
+│   ├── package.json
+│   ├── requirements.txt
+│   └── setup_env.bat   # Auto setup
+│
+├── 05-documents/       # Documentation
+│   ├── README.md
+│   ├── ARCHITECTURE.md
+│   └── ...
+│
+├── 06-tools/           # Utilities
+│   └── gen_resume.py   # Resume generator
+│
+└── MIGRATION_README.md # This file

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>应届生简历系统 - 项目迁移部署手册</title>
+<style>
+body { font-family: "Microsoft YaHei", "SimHei", sans-serif; line-height: 1.8; max-width: 900px; margin: 0 auto; padding: 40px; color: #333; }
+h1 { color: #2E74B5; font-size: 32pt; text-align: center; border-bottom: 3px solid #2E74B5; padding-bottom: 20px; margin-bottom: 40px; }
+h2 { color: #2E74B5; font-size: 18pt; margin-top: 40px; border-left: 5px solid #2E74B5; padding-left: 15px; }
+h3 { color: #2E74B5; font-size: 14pt; margin-top: 25px; }
+table { border-collapse: collapse; width: 100%; margin: 20px 0; font-size: 11pt; }
+th, td { border: 1px solid #ccc; padding: 12px; text-align: left; }
+th { background-color: #2E74B5; color: white; font-weight: bold; }
+tr:nth-child(even) { background-color: #f9f9f9; }
+.code { background-color: #f5f5f5; padding: 15px; border-left: 4px solid #2E74B5; font-family: Consolas, monospace; margin: 15px 0; font-size: 10pt; }
+.warning { background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 15px 0; }
+.info { background-color: #d1ecf1; border-left: 4px solid #17a2b8; padding: 15px; margin: 15px 0; }
+.toc { background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0; }
+.toc a { color: #2E74B5; text-decoration: none; }
+.toc a:hover { text-decoration: underline; }
+ul, ol { margin: 10px 0; padding-left: 30px; }
+li { margin: 8px 0; }
+.cover { text-align: center; padding: 100px 0; }
+.cover h1 { border: none; font-size: 36pt; }
+.cover .subtitle { font-size: 24pt; color: #666; margin: 20px 0; }
+.cover .meta { font-size: 14pt; color: #999; margin-top: 60px; }
+.page-break { page-break-before: always; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+<h1>应届生简历系统</h1>
+<div class="subtitle">项目迁移部署手册</div>
+<div class="meta">
+版本: 1.0<br>
+日期: 2025年4月30日
+</div>
+</div>
+
+<div class="page-break"></div>
+
+<h2>目录</h2>
+<div class="toc">
+<ol>
+<li><a href="#section1">项目概述</a></li>
+<li><a href="#section2">环境要求</a></li>
+<li><a href="#section3">迁移步骤概览</a></li>
+<li><a href="#section4">详细部署流程</a></li>
+<li><a href="#section5">常见问题及解决方案</a></li>
+<li><a href="#section6">桌面文件说明</a></li>
+<li><a href="#section7">附录</a></li>
+</ol>
+</div>
+
+<div class="page-break"></div>
+
+<h2 id="section1">一、项目概述</h2>
+
+<h3>1.1 项目简介</h3>
+<p>本项目是一个基于AI的应届生简历生成系统，主要功能包括：</p>
+<ul>
+<li><strong>智能简历生成</strong>：根据用户输入的个人信息自动生成专业简历</li>
+<li><strong>PDF导出</strong>：生成格式规范的PDF简历文件</li>
+<li><strong>Web管理界面</strong>：提供友好的用户操作界面</li>
+</ul>
+
+<h3>1.2 技术架构</h3>
+<table>
+<tr><th>层级</th><th>技术栈</th></tr>
+<tr><td>前端</td><td>React + TypeScript + Tailwind CSS + Vite</td></tr>
+<tr><td>后端</td><td>Node.js + Express + TypeScript</td></tr>
+<tr><td>数据库</td><td>PostgreSQL + Drizzle ORM</td></tr>
+<tr><td>AI服务</td><td>Kimi AI API</td></tr>
+<tr><td>PDF生成</td><td>Python + ReportLab</td></tr>
+</table>
+
+<div class="page-break"></div>
+
+<h2 id="section2">二、环境要求</h2>
+
+<h3>2.1 必需软件</h3>
+<table>
+<tr><th>软件</th><th>版本要求</th><th>下载地址</th></tr>
+<tr><td>Node.js</td><td>18.x 或更高</td><td>https://nodejs.org/</td></tr>
+<tr><td>Python</td><td>3.10 或更高</td><td>https://www.python.org/</td></tr>
+<tr><td>PostgreSQL</td><td>14.x 或更高</td><td>https://www.postgresql.org/</td></tr>
+<tr><td>Git</td><td>任意版本</td><td>https://git-scm.com/</td></tr>
+</table>
+
+<div class="page-break"></div>
+
+<h2 id="section3">三、迁移步骤概览</h2>
+
+<p>迁移过程分为以下几个阶段，预计总耗时 30-60 分钟：</p>
+
+<h3>阶段一：准备工作（5分钟）</h3>
+<ol>
+<li>复制迁移包到新设备</li>
+<li>检查环境要求是否满足</li>
+<li>解压迁移包到目标目录</li>
+</ol>
+
+<h3>阶段二：环境安装（15-30分钟）</h3>
+<ol>
+<li>安装 Node.js 依赖</li>
+<li>安装 Python 依赖</li>
+<li>配置环境变量</li>
+</ol>
+
+<h3>阶段三：数据库配置（5-10分钟）</h3>
+<ol>
+<li>创建数据库</li>
+<li>运行迁移脚本</li>
+<li>验证连接</li>
+</ol>
+
+<h3>阶段四：启动服务（5分钟）</h3>
+<ol>
+<li>启动后端服务</li>
+<li>启动前端开发服务器</li>
+<li>验证功能正常</li>
+</ol>
+
+<div class="page-break"></div>
+
+<h2 id="section4">四、详细部署流程</h2>
+
+<h3>4.1 准备工作</h3>
+
+<h4>步骤 1：复制迁移包</h4>
+<p>将桌面上的迁移包文件复制到新设备：</p>
+<ul>
+<li>迁移包文件夹: <code>idea_0.2_migration_20260429_1624</code></li>
+<li>压缩包: <code>idea_0.2_migration_20260429_1624.zip</code></li>
+</ul>
+
+<div class="info">
+<strong>提示：</strong>建议将迁移包解压到非中文路径，例如 <code>D:\projects\</code> 或 <code>C:\workspace\</code>
+</div>
+
+<h4>步骤 2：解压迁移包</h4>
+<div class="code">
+# 使用 Windows 资源管理器右键解压，或使用命令行：<br>
+Expand-Archive -Path "idea_0.2_migration_20260429_1624.zip" -DestinationPath "."
+</div>
+
+<h3>4.2 安装 Node.js 依赖</h3>
+
+<h4>步骤 1：进入源代码目录</h4>
+<div class="code">
+cd 01-source-code
+</div>
+
+<h4>步骤 2：安装依赖</h4>
+<div class="code">
+npm install
+</div>
+
+<div class="warning">
+<strong>注意：</strong>如果安装过程中出现网络错误，可以尝试使用淘宝镜像：<br>
+npm config set registry https://registry.npmmirror.com
+</div>
+
+<h4>步骤 3：验证安装</h4>
+<div class="code">
+npm list
+</div>
+
+<h3>4.3 安装 Python 依赖</h3>
+
+<h4>步骤 1：进入 Python 服务目录</h4>
+<div class="code">
+cd ..\02-python-service
+</div>
+
+<h4>步骤 2：创建虚拟环境（推荐）</h4>
+<div class="code">
+python -m venv venv<br>
+venv\Scripts\activate
+</div>
+
+<h4>步骤 3：安装依赖</h4>
+<div class="code">
+pip install -r requirements.txt
+</div>
+
+<h3>4.4 配置环境变量</h3>
+
+<h4>步骤 1：复制环境变量模板</h4>
+<div class="code">
+cd ..\01-source-code<br>
+copy .env.example .env
+</div>
+
+<h4>步骤 2：编辑 .env 文件</h4>
+<p>使用文本编辑器打开 .env 文件，填写以下配置：</p>
+<div class="code">
+# 数据库配置<br>
+DATABASE_URL=postgresql://username:password@localhost:5432/resume_db<br><br>
+# AI API 配置<br>
+KIMI_API_KEY=your_api_key_here<br><br>
+# 其他配置<br>
+PORT=3000<br>
+NODE_ENV=development
+</div>
+
+<h3>4.5 数据库配置</h3>
+
+<h4>步骤 1：创建数据库</h4>
+<div class="code">
+# 使用 psql 命令行或 pgAdmin 创建数据库<br>
+createdb resume_db
+</div>
+
+<h4>步骤 2：运行数据库迁移</h4>
+<div class="code">
+npm run db:migrate
+</div>
+
+<h3>4.6 启动服务</h3>
+
+<h4>步骤 1：启动后端服务</h4>
+<div class="code">
+npm run server
+</div>
+
+<h4>步骤 2：启动前端开发服务器（新终端）</h4>
+<div class="code">
+npm run dev
+</div>
+
+<h4>步骤 3：访问应用</h4>
+<p>打开浏览器访问：<code>http://localhost:5173</code></p>
+
+<div class="page-break"></div>
+
+<h2 id="section5">五、常见问题及解决方案</h2>
+
+<h3>问题 1：npm install 失败</h3>
+<p><strong>症状：</strong>安装过程中出现网络错误或权限错误</p>
+<p><strong>解决方案：</strong></p>
+<ol>
+<li>检查网络连接，尝试使用淘宝镜像：
+<div class="code">npm config set registry https://registry.npmmirror.com</div>
+</li>
+<li>以管理员身份运行命令行</li>
+<li>清除 npm 缓存后重试：
+<div class="code">npm cache clean --force</div>
+</li>
+</ol>
+
+<h3>问题 2：数据库连接失败</h3>
+<p><strong>症状：</strong>启动服务时提示数据库连接错误</p>
+<p><strong>解决方案：</strong></p>
+<ol>
+<li>检查 PostgreSQL 服务是否已启动</li>
+<li>验证 .env 文件中的数据库连接字符串是否正确</li>
+<li>确认数据库用户具有足够权限</li>
+</ol>
+
+<h3>问题 3：Python 依赖安装失败</h3>
+<p><strong>症状：</strong>pip install 报错</p>
+<p><strong>解决方案：</strong></p>
+<ol>
+<li>确保 Python 版本符合要求（3.10+）</li>
+<li>升级 pip：
+<div class="code">python -m pip install --upgrade pip</div>
+</li>
+<li>使用国内镜像：
+<div class="code">pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple</div>
+</li>
+</ol>
+
+<h3>问题 4：端口被占用</h3>
+<p><strong>症状：</strong>启动服务时提示端口已被占用</p>
+<p><strong>解决方案：</strong></p>
+<ol>
+<li>查找占用端口的进程：
+<div class="code">netstat -ano | findstr :3000</div>
+</li>
+<li>结束占用进程或修改 .env 文件中的 PORT 配置</li>
+</ol>
+
+<div class="page-break"></div>
+
+<h2 id="section6">六、桌面文件说明</h2>
+
+<p>在执行迁移打包任务过程中，桌面上生成了以下文件：</p>
+
+<h3>6.1 迁移核心文件（必须保留）</h3>
+<table>
+<tr><th>文件名</th><th>说明</th><th>操作建议</th></tr>
+<tr><td>idea_0.2_migration_20260429_1624</td><td>项目迁移包文件夹，包含完整的项目源代码和配置</td><td><strong>不可删除</strong></td></tr>
+<tr><td>idea_0.2_migration_20260429_1624.zip</td><td>迁移包压缩文件，便于传输和备份</td><td><strong>建议保留</strong></td></tr>
+</table>
+
+<h3>6.2 临时脚本文件（可以删除）</h3>
+<table>
+<tr><th>文件名</th><th>说明</th><th>操作建议</th></tr>
+<tr><td>pack_project.ps1</td><td>PowerShell 打包脚本（执行未成功）</td><td>可以删除</td></tr>
+<tr><td>pack_project.py</td><td>Python 打包脚本（执行未成功）</td><td>可以删除</td></tr>
+<tr><td>pack_project_fixed.py</td><td>最终成功的打包脚本</td><td>可以删除</td></tr>
+<tr><td>create_manual.js</td><td>生成手册的 Node.js 脚本</td><td>可以删除</td></tr>
+<tr><td>package.json</td><td>npm 配置文件（安装 docx 库时生成）</td><td>可以删除</td></tr>
+<tr><td>package-lock.json</td><td>npm 锁定文件</td><td>可以删除</td></tr>
+</table>
+
+<h3>6.3 其他文件</h3>
+<table>
+<tr><th>文件名</th><th>说明</th><th>操作建议</th></tr>
+<tr><td>resume_chenwei.pdf</td><td>示例简历 PDF 文件</td><td>可选删除</td></tr>
+<tr><td>node_modules</td><td>npm 依赖文件夹（安装 docx 库时生成）</td><td>可以删除</td></tr>
+</table>
+
+<h3>6.4 删除步骤（请手动执行）</h3>
+<p>打开 PowerShell 或 CMD，执行以下命令：</p>
+<div class="code">
+del "C:\Users\0232\Desktop\pack_project.ps1"<br>
+del "C:\Users\0232\Desktop\pack_project.py"<br>
+del "C:\Users\0232\Desktop\pack_project_fixed.py"<br>
+del "C:\Users\0232\Desktop\create_manual.js"<br>
+del "C:\Users\0232\Desktop\package.json"<br>
+del "C:\Users\0232\Desktop\package-lock.json"<br>
+del "C:\Users\0232\Desktop\resume_chenwei.pdf"<br>
+rmdir /s /q "C:\Users\0232\Desktop\node_modules"
+</div>
+
+<div class="warning">
+<strong>重要提醒：</strong><br>
+1. 不要删除 idea_0.2_migration_20260429_1624 文件夹和 .zip 文件<br>
+2. 删除前请确认这些文件不再需要<br>
+3. 如果不确定，建议先移动到回收站而非永久删除
+</div>
+
+<div class="page-break"></div>
+
+<h2 id="section7">七、附录</h2>
+
+<h3>7.1 常用命令参考</h3>
+<table>
+<tr><th>命令</th><th>说明</th></tr>
+<tr><td>npm run dev</td><td>启动开发服务器</td></tr>
+<tr><td>npm run build</td><td>构建生产版本</td></tr>
+<tr><td>npm run server</td><td>启动后端服务</td></tr>
+<tr><td>npm run db:migrate</td><td>运行数据库迁移</td></tr>
+<tr><td>npm run db:up</td><td>启动数据库容器</td></tr>
+<tr><td>npm run db:down</td><td>停止数据库容器</td></tr>
+</table>
+
+<h3>7.2 项目目录结构</h3>
+<div class="code">
+idea_0.2_migration_20260429_1624/<br>
+├── 01-source-code/          # 前端和后端源代码<br>
+│   ├── client/              # React 前端<br>
+│   ├── server/              # Express 后端<br>
+│   ├── shared/              # 共享类型定义<br>
+│   └── package.json<br>
+├── 02-python-service/       # Python PDF 生成服务<br>
+│   ├── app.py<br│   └── requirements.txt<br>
+└── README.md
+</div>
+
+<h3>7.3 联系支持</h3>
+<p>如果在部署过程中遇到问题，请：</p>
+<ol>
+<li>查看项目 README.md 文件</li>
+<li>检查环境要求是否全部满足</li>
+<li>参考本手册的"常见问题"章节</li>
+</ol>
+
+<div style="text-align: center; margin-top: 60px; color: #666; border-top: 1px solid #ccc; padding-top: 20px;">
+--- 手册结束 ---
+</div>
+
+</body>
+</html>

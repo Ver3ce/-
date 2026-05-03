@@ -1,0 +1,84 @@
+version: '3.8'
+
+services:
+  # ===== MySQL 数据库 =====
+  mysql:
+    image: mysql:8.0
+    container_name: aurora_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: aurora_career
+      MYSQL_USER: aurora
+      MYSQL_PASSWORD: 123456
+      TZ: Asia/Shanghai
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./db/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - aurora-network
+
+  # ===== 极光职途应用 =====
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: aurora_app
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: mysql://aurora:123456@mysql:3306/aurora_career
+      APP_ID: ${APP_ID}
+      APP_SECRET: ${APP_SECRET}
+      KIMI_API_KEY: ${KIMI_API_KEY}
+      KIMI_AUTH_URL: ${KIMI_AUTH_URL}
+      VITE_APP_ID: ${VITE_APP_ID}
+      VITE_KIMI_AUTH_URL: ${VITE_KIMI_AUTH_URL}
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - aurora-network
+    restart: unless-stopped
+
+  # ===== 可选：Redis 缓存 =====
+  # 取消注释以启用 Redis（适合高并发场景）
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: aurora_redis
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - redis_data:/data
+  #   networks:
+  #     - aurora-network
+
+  # ===== 可选：Nginx 反向代理 =====
+  # 取消注释以启用 Nginx（适合生产环境）
+  # nginx:
+  #   image: nginx:alpine
+  #   container_name: aurora_nginx
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - ./nginx.conf:/etc/nginx/nginx.conf:ro
+  #   depends_on:
+  #     - app
+  #   networks:
+  #     - aurora-network
+
+volumes:
+  mysql_data:
+  # redis_data:
+
+networks:
+  aurora-network:
+    driver: bridge
